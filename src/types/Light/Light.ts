@@ -4,6 +4,7 @@ import { LightCapabilities } from './LightCapabilities';
 import { LightConfig } from './LightConfig';
 
 export interface Light {
+  id?: string;
   state: LightState;
   swupdate: UpdateStatus;
   capabilities: LightCapabilities;
@@ -18,19 +19,3 @@ export interface Light {
   productid: string;
   config: LightConfig;
 }
-
-/*
-
-{
-		"config": {
-			"archetype": "classicbulb",
-			"function": "functional",
-			"direction": "omnidirectional",
-			"startup": {
-				"mode": "safety",
-				"configured": true
-			}
-		}
-	}
-
-*/

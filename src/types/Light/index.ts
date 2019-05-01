@@ -4,6 +4,7 @@ export * from './LightCapabilities';
 export * from './LightConfig';
 export * from './LightControl';
 export * from './LightCT';
+export * from './LightOnOptions';
 export * from './LightStartup';
 export * from './LightState';
 export * from './LightStreaming';
