@@ -1,8 +1,8 @@
-import fetch from 'node-fetch';
 import { HueAPIOptions } from '../sdk';
-import { Light, LightOnOptions } from '../types';
+import fetch from 'node-fetch';
+import { Group, GroupOnOptions } from '../types';
 
-export class Lights {
+export class Groups {
   options: HueAPIOptions;
   private url: string;
 
@@ -12,7 +12,7 @@ export class Lights {
   }
 
   getAll() {
-    return fetch(`${this.url}/lights`)
+    return fetch(`${this.url}/groups`)
       .then(res => res.json())
       .then(json => {
         if (Array.isArray(json)) {
@@ -20,22 +20,22 @@ export class Lights {
         }
 
         return Object.keys(json).map(x => {
-          const light = json[x] as Light;
+          const light = json[x] as Group;
           light.id = x;
           return light;
         });
       });
   }
 
-  getLight(id: string) {
-    return fetch(`${this.url}/lights/${id}`)
+  getGroup(id: string) {
+    return fetch(`${this.url}/groups/${id}`)
       .then(res => res.json())
       .then(json => {
         if (Array.isArray(json)) {
           return { success: !!json[0]['error'], message: json };
         }
         return Object.keys(json).map(x => {
-          const light = json[x] as Light;
+          const light = json[x] as Group;
           light.id = x;
           return light;
         })[0];
@@ -60,8 +60,9 @@ export class Lights {
    * @param {number} hue_inc Optional, Increments or decrements the value of the hue. 
    * @param {number} ct_inc Optional, Increments or decrements the value of the ct.
    * @param {number} xy_inc Optional, Increments or decrements the value of the xy.
+   * @param {string} scene Optional, The scene identifier if the scene you wish to recall.
    */
-  lightOn(id: string, options: LightOnOptions) {
+  groupOn(id: string, options: GroupOnOptions) {
     const body: any = { on: true };
 
     // SET BODY PARAMS
@@ -117,7 +118,7 @@ export class Lights {
       body['xy_inc'] = options.xy_inc;
     }
 
-    return fetch(`${this.url}/lights/${id}/state`, {
+    return fetch(`${this.url}/groups/${id}/action`, {
       method: 'PUT',
       body: JSON.stringify(body)
     })
@@ -127,8 +128,8 @@ export class Lights {
       });
   }
 
-  lightOff(id: string) {
-    return fetch(`${this.url}/lights/${id}/state`, {
+  groupOff(id: string) {
+    return fetch(`${this.url}/groups/${id}/action`, {
       method: 'PUT',
       body: JSON.stringify({ on: false })
     })
@@ -138,14 +139,7 @@ export class Lights {
       });
   }
 
-  setLightName(id: string, name: string) {
-    return fetch(`${this.url}/lights/${id}/state`, {
-      method: 'PUT',
-      body: JSON.stringify({ name: name })
-    })
-      .then(res => res.json())
-      .then(json => {
-        return { success: !!json[0].success, message: json };
-      });
+  setGroupAttributes(name: string, lights?: string[], groupClass?: string) {
+    return fetch(`${this.url}`);
   }
 }

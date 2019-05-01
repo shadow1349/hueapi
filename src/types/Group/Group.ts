@@ -2,10 +2,11 @@ import { GroupAction } from './GroupAction';
 import { GroupState } from './GroupState';
 
 export interface Group {
+  id?: string;
   name: string;
-  lights: number[];
+  lights: string[];
   type: string;
-  sensors: number[];
+  sensors: string[];
   action: GroupAction;
   state?: GroupState;
   recycle?: boolean;
