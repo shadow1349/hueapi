@@ -1,0 +1,24 @@
+{
+  "name": "hueapi",
+  "version": "1.0.0",
+  "description": "Unofficial Phillips Hue Lights API",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "lint": "./node_modules/.bin/tslint --project tsconfig.json"
+  },
+  "author": "Sam Redmond",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node-fetch": "^2.3.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
+    }
+  },
+  "dependencies": {
+    "husky": "^2.1.0",
+    "node-fetch": "^2.4.1"
+  }
+}
